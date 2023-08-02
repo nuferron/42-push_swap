@@ -89,36 +89,56 @@ void	print_stack(t_stack *stack, char *str)
 	ft_printf("\n");
 }
 
-#include <limits.h>
-
-int	consec(int first, int second)
+int	distributor(t_stack **a, t_stack **b)
 {
-	if (first - second == 1)
-		return (1);
-	else if (first - second == -1)
-		return (1);
+	int	max_id;
+
+	max_id = getting_max_id(*a);
+	if (max_id == 1)
+	{
+		swap(a);
+		write(1, "sa\n", 3);
+	}
+	else if (max_id == 2)
+		sorting_three(a);
+	else if (max_id == 3)
+		sorting_four(a, b, last_node(*a));
+	else if (max_id == 4)
+		sorting_five(a, b);
+	else
+		ft_printf("\n\nWTF\n\n");
 	return (0);
 }
 
-/*int	sort_deg(t_stack *a)
+int	print_moves(t_stack **a, t_stack **b, char m, void (*ft)(t_stack**))
 {
-	int	deg;
-
-	deg = 1;
-	while (a->next != NULL)
+	if (m == 'b')
 	{
-		if (a->id - a->next->id == -1)
-			deg++;
-		a = a->next;
+		push(a, b);
+		return (ft_printf("pb\n"));
 	}
-	return (deg);
-}*/
+	if (m == 'a')
+	{
+		push(b, a);
+		return (ft_printf("pa\n"));
+	}
+	else
+		ft(a);
+	if (m == 's')
+		return (ft_printf("sa\n"));
+	if (m == 'r')
+		return (ft_printf("ra\n"));
+	if (m == 'R')
+		return (ft_printf("rra\n"));
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack *b = NULL;
 	int		i;
+	int		voltes = 0;
 
 	i = 1;
 	if (argc < 2 || argv[1][0] == '\0' || checking_input(argc, argv) == -1)
@@ -127,27 +147,15 @@ int	main(int argc, char **argv)
 	print_stack(a, "initial stack:");
 	if (is_sorted(a) == 0)
 		return (ft_printf("Already sorted\n"));
-	//fixing_stack(&a, &b, getting_max_id(a));
-	int voltes = 0;
-	/*while (is_sorted(a) != 0 && voltes < 12)
-	{
-		sorting_three(&a, last_node(a));
-		print_stack(a, "stack a:");
-		voltes++;
-		if (voltes == 12)
-			write(1, "FUCK\n", 5);
-	}*/
-	char	prev = 'w';
-	while (is_sorted(a) != 0 && voltes < 12)
-	{
-		sorting_five(&a, &b, last_node(a), &prev);
-		print_stack(a, "stack a:");
-		voltes++;
-		if (voltes == 12)
-			write(1, "FUCK\n", 5);
-	}
-	ft_printf("MOV COUNT: %d\n", voltes);
-	//ft_printf("grau d'ordre: %d\n", sort_deg(a));
+	voltes = distributor(&a, &b);
+	if (voltes == 12)
+		write(1, "FUCK 🤬\n", 5);
+	ft_printf("\nMOV COUNT: %d\n", voltes);
+	if (is_sorted(a) == 0 && (last_node(a))->id == getting_max_id(a)
+		&& a->id == 0)
+		ft_printf("SORTED! 🥳\n\n");
+	else
+		ft_printf("NOT SORTED 🤬\n\n");
 	print_stack(b, "stack b:");
 	print_stack(a, "stack a:");
 }

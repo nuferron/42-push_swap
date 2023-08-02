@@ -22,7 +22,6 @@ SRCSBONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
 			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
 
-#aqui passem els srcs a objs canviant l'extensio de .c a .o
 OBJS = ${SRCS:.c=.o}
 
 
@@ -33,18 +32,14 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 OBJSBONUS = ${SRCSBONUS:.c=.o}
 
-
-#quan fem una conversio de .c a .o, aqui mirem si el header ha estat modificat
 %.o: %.c $(HEADER)
 	${CC} ${CFLAGS} -I libft.h -c $< -o ${<:.c=.o}
 
 
 all: 		${NAME}
 
-#primer mirem si els OBJS son mes nous que el NAME; si ho son, s'executa el comando que hi ha a sota i, si no, no s'executa res.
 ${NAME}:	${OBJS} 
 		ar rcs ${NAME} ${OBJS}
-		ranlib ${NAME}
 
 bonus:		${OBJS} ${OBJSBONUS} $(HEADER)
 			ar rcs ${NAME} ${OBJS} ${OBJSBONUS}
@@ -59,5 +54,4 @@ fclean: 	clean
 
 re:		fclean all
 
-#li especifiquem el nom de les normes que no volem que confongui amb arxius que puguin tenir el mateix nom.
 .PHONY: all clean fclean re

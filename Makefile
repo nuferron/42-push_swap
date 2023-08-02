@@ -6,6 +6,7 @@ NAME = push_swap.a
 HEADER = push_swap.h
 HEADER_LIBFT = libft/libft.h
 CFLAGS = -Wall -Wextra -Werror
+BIN = push_swap
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -13,30 +14,31 @@ CFLAGS = -Wall -Wextra -Werror
 all: make_libs ${NAME}
 
 make_libs:
-	make -C ft_printf/
+	@make -C ft_printf/ --no-print-directory
 
 ${NAME}: ${OBJS}
 	cp ft_printf/libftprintf.a ${NAME}
 	ar crs ${NAME} ${OBJS}
 
 leaks:
-	leaks -atExit -- ./a.out ${ARGS}
+	leaks -atExit -- ./${BIN} ${ARGS}
 
 norm:
 	norminette ${SRCS}
 
-run: ${NAME} make_libs
-	cc ${CFLAGS} push_swap.c ${NAME}
+run: all
+	cc ${CFLAGS} push_swap.c ${NAME} -o ${BIN}
+	@#./${BIN} ${ARGS}
 
 clean:
 	@rm -f ${OBJS} $ ${OBJS_BONUS}
-	MAKE -C ft_printf clean
+	@make -C ft_printf clean --no-print-directory
 
 fclean:	clean
 	@rm -f ${NAME}
 	rm -f bonus do_bonus
-	rm ./a.out
-	MAKE -C ft_printf fclean
+	rm -f ${BIN}
+	@make -C ft_printf fclean --no-print-directory
 
 re:	fclean all
 

@@ -25,10 +25,13 @@ long long	ft_atoll(char *str);
 int			is_duplicated(int total, int i, int num);
 int			checking_input(int argc, char **input);
 int			getting_max_id(t_stack *stack);
+int			getting_min_id(t_stack *stack);
 int			is_sorted(t_stack *stack);
 void		print_stack(t_stack *stack, char *str);
-int			sorting_three(t_stack **a, t_stack *last);
-int			sorting_five(t_stack **a, t_stack **b, t_stack *last, char *prev);
-int			consec(int first, int second);
+int			sorting_three(t_stack **a);
+void		sorting_four(t_stack **a, t_stack **b, t_stack *last);
+int			sorting_five(t_stack **a, t_stack **b);
+int			element_num(t_stack *stack);
+int			print_moves(t_stack **a, t_stack **b, char m, void (*f)(t_stack**));
 
 #endif

@@ -38,7 +38,7 @@ all: make_libs ${NAME}
 bonus: make_libs do_bonus
 
 make_libs:
-	MAKE -C libft/
+	@make -C libft/
 
 ${NAME}: ${OBJS}
 	cp libft/libft.a $(NAME)
@@ -51,12 +51,12 @@ do_bonus: ${OBJS_BONUS} ${HEADER_LIBFT}
 
 clean:
 	@rm -f ${OBJS} $ ${OBJS_BONUS}
-	MAKE -C libft clean
+	make -C libft clean --no-print-directory
 
 fclean:	clean
 	@rm -f ${NAME}
 	rm -f bonus do_bonus
-	MAKE -C libft fclean
+	make -C libft fclean --no-print-directory
 
 re:	fclean all
 

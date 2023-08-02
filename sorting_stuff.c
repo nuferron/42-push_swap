@@ -5,18 +5,36 @@ int	getting_max_id(t_stack *stack)
 	int	id;
 
 	id = 0;
-	while (stack->next != NULL)
+	while (stack)
 	{
 		if (stack->id > id)
 			id = stack->id;
 		stack = stack->next;
 	}
-	if (stack->id > id)
-		id = stack->id;
 	return (id);
 }
 
-int	is_sorted(t_stack *stack, int max_id)
+int	getting_min_id(t_stack *stack)
+{
+	int	id;
+	t_stack	*tmp;
+
+	id = 0;
+	while (stack)
+	{
+		tmp = stack;
+		while (tmp)
+		{
+			if (id == tmp->id)
+				return (id);
+			tmp = tmp->next;
+		}
+		id++;
+	}
+	return (-1);
+}
+
+/*int	is_sorted(t_stack *stack)
 {
 	int	sort;
 
@@ -30,130 +48,197 @@ int	is_sorted(t_stack *stack, int max_id)
 		sort++;
 		stack = stack->next;
 	}
-	if (stack->id != 0 && )
+	return (0);
+}*/
+
+int	is_sorted(t_stack *stack)
+{
+	if (stack->next == NULL)
+		return (0);
+	while (stack->next != NULL)
+	{
+		if (stack->id - stack->next->id != -1)
+			return (-1);
+		stack = stack->next;
+	}
 	return (0);
 }
 
-int	sorting_three(t_stack **a, t_stack *last)
+int	sorting_three(t_stack **a)
 {
-	if ((*a)->id - (*a)->next->id == 1)
+	int	counter = 0;
+	t_stack	*last;
+
+	while (is_sorted(*a) != 0 && counter < 4)
 	{
-		swap(a);
-		return (write(1, "sa\n", 3));
+		last = last_node(*a);
+		if ((*a)->id - (*a)->next->id == 1)
+		{
+			swap(a);
+			write(1, "sa\n", 3);
+		}
+		else if ((*a)->id - last->id == 1 || (*a)->id - last->id == -1)
+		{
+			reverse_rotate(a);
+			write(1, "rra\n", 4);
+		}
+		else
+		{
+			rotate(a);
+			write(1, "ra\n", 3);
+		}
+		print_stack(*a, "three:");
+		counter++;
 	}
-	else if ((*a)->id + last->id == 1)
-	{
-		reverse_rotate(a);
-		return (write(1, "rra\n", 4));
-	}
-	else
-	{
-		rotate(a);
-		return (write(1, "ra\n", 3));
-	}
+	return (counter);
 }
 
-/*int one_five_conecteds(t_stack **a)
+void	sorting_four(t_stack **a, t_stack **b, t_stack *last)
 {
-	t_stack *tmp;
-
-	tmp = *a;
-	while(tmp)
+	if ((*a)->id == 0 || (*a)->id == 3)
 	{
-		if(tmp->id == 0 && tmp->next && tmp->next->id ==  4)
-			return 1;
-		if(tmp->id == 4 && tmp->next && tmp->next->id ==  0)
-			return 1;
-		if(tmp->id == 0 && (*last_node(tmp))->id == 4)
-			return 1;
-		if(tmp->id == 4 && (*last_node(tmp))->id == 0)
-			return 1;
-		tmp = tmp->next;
-	}
-	return 0;
-}
-
-
-
-int	sorting_five(t_stack **a, t_stack *last, char *prev)
-{
-	int swap;
-
-	swap = 0;
-	// Si primero es mas grande que segundo y no 
-	if (((*a)->id > (*a)->next->id) && !one_five_conecteds(a) && ){
-		swap = 1;
-	}
-	// Si es un 1 5 lo paso a 5 1
-	if ((*a)->next->id == 0 && (*a)->next->next->id == 4)
-		swap = 1;
-	if()
-}*/
-
-/*int	sorting_five(t_stack **a, t_stack *last, char *prev)
-{
-	if (*prev != 's' && ((*a)->id - (*a)->next->id == 1 || (*a)->id - (*a)->next->next->id == 1
-		|| (*a)->id - (*a)->next->next->id == -1))
-	//if (*prev != 's' && ((*a)->id - (*a)->next->id == 1 || consec((*a)->id, (*a)->next->next->id)))
-	{
-		*prev = 's';
-		swap(a);
-		return (write(1, "sa\n", 3));
-	}
-	else if (*prev != 'r' && ((*a)->id - last->id == 1 || (*a)->id - last->id == -1
-			|| (*a)->next->id - last->id == 1 || (*a)->next->id - last->id == -1))
-	else if (*prev != 'r' && (consec((*a)->id, last->id) || consec((*a)->next->id, last->id)))
-	{
-		*prev = 'R';
-		reverse_rotate(a);
-		return(write(1, "rra\n", 4));
-	}
-	else if (*prev != 'R')
-	{
-		*prev = 'r';
-		rotate(a);
-		return (write(1, "ra\n", 3));
-	}
-	else
-	{
-		return (ft_printf("no conditions matched\n"));
-	}
-}*/
-
-int	sorting_five(t_stack **a, t_stack **b, t_stack *last, char *prev)
-{
-	if (!(*b) && (*a)->id == 0)
-	{
-		*prev = 'a';
 		push(a, b);
-		return (write(1, "pb\n", 3));
+		write(1, "pb\n", 3);
 	}
-	if (b && is_sorted(*a) == 1)
+	else if (last->id == 0 || last->id == 3)
 	{
-		*prev = 'b';
-		push(b, a);
-		return (write(1, "pa\n", 3));
-	}
-	if (*prev != 's' && (*a)->id - (*a)->next->id == 1)
-	{
-		*prev = 's';
-		swap(a);
-		return (write(1, "sa\n", 3));
-	}
-	if (*prev != 'r' && consec((*a)->id, last->id) == 1 && (*a)->id <= 3)
-	{
-		*prev = 'R';
 		reverse_rotate(a);
-		return (write(1, "rra\n", 4));
-	}
-	if (*prev != 'R' && consec((*a)->id, last->id) == 1 && (*a)->id > 3)
-	{
-		*prev = 'r';
-		rotate(a);
-		return (write(1, "ra\n", 3));
+		push(a, b);
+		write(1, "pb\nrra\n", 7);
 	}
 	else
 	{
-		return (ft_printf("no conditions matched\n"));
+		swap(a);
+		push(a, b);
+		write(1, "sa\npb\n", 3);
 	}
+	sorting_three(a);
+	push(b, a);
+	write(1, "pa\n", 3);
+	if ((*a)->id == 3)
+	{
+		rotate(a);
+		write(1, "ra\n", 3);
+	}
+}
+
+void	five_last_sort(t_stack **a, t_stack **b)
+{
+	int	max;
+
+	max = getting_max_id(*a);
+	push(b, a);
+	push(b, a);
+	write(1, "pa\npa\n", 6);
+	if (is_sorted(*a) == 0)
+		return ;
+	if (((*a)->next->id > max / 2 && (*a)->id > (*a)->next->id)
+		|| ((*a)->next->id > max / 2 && (*a)->id - (*a)->next->id != 1)
+		|| ((*a)->id - (*a)->next->id == 1 && (*a)->id < max / 2))
+	{
+		swap(a);
+		write(1, "sa\n", 3);
+	}
+	if ((*a)->id - (*a)->next->id == -1)
+	{
+		rotate(a);
+		rotate(a);
+		write(1, "ra\n", 3);
+	}
+	else if ((*a)->id - (*a)->next->id != -1)
+		rotate(a);
+	write(1, "ra\n", 3);
+}
+
+int	element_num(t_stack *stack)
+{
+	int	counter;
+
+	counter = 0;
+	while (stack)
+	{
+		counter++;
+		stack = stack->next;
+	}
+	return (counter);
+}
+/* AQUESTA ES LA QU FUNCIONA PER TOTS ELS CASOS
+int	sorting_five(t_stack **a, t_stack **b)
+{
+	t_stack *last;
+	int		counter = 0;
+	int		min;
+	int		max;
+
+	while (element_num(*b) != 2 && counter < 5)
+	{
+		last = last_node(*a);
+		min = getting_min_id(*a);
+		max = getting_max_id(*a);
+		if ((*a)->id == min || (*a)->id == max)
+		{
+			push(a, b);
+			write(1, "pb\n", 3);
+		}
+		else if (last->id == min || last->id == max)
+		{
+			reverse_rotate(a);
+			push(a, b);
+			write(1, "rra\npb\n", 7);
+		}
+		else if ((*a)->next->id == min || (*a)->next->id == max)
+		{
+			swap(a);
+			push(a, b);
+			write(1, "sa\npb\n", 6);
+		}
+		else if ((*a)->next->next->id == min ||(*a)->next->next->id == max)
+		{
+			rotate(a);
+			write(1, "ra\n", 3);
+		}
+		else if ((*a)->next->next->next->id == min
+				|| (*a)->next->next->next->id == max)
+		{
+			reverse_rotate(a);
+			write(1, "rra\n", 4);
+		}
+	}
+	sorting_three(a);
+	if (is_sorted(*a) != 0 || (*a)->id != 0 || (last_node(*a))->id != max)
+		five_last_sort(a, b);
+	return (0);
+}*/
+
+int	sorting_five(t_stack **a, t_stack **b)
+{
+	int		min;
+	int		max;
+
+	while (element_num(*b) != 2)
+	{
+		min = getting_min_id(*a);
+		max = getting_max_id(*a);
+		if ((*a)->id == min || (*a)->id == max)
+			print_moves(a, b, 'b', NULL);
+		else if ((last_node(*a))->id == min || (last_node(*a))->id == max)
+		{
+			print_moves(a, b, 'R', reverse_rotate);
+			print_moves(a, b, 'b', NULL);
+		}
+		else if ((*a)->next->id == min || (*a)->next->id == max)
+		{
+			print_moves(a, b, 's', swap);
+			print_moves(a, b, 'b', NULL);
+		}
+		else if ((*a)->next->next->id == min ||(*a)->next->next->id == max)
+			print_moves(a, b, 'r', rotate);
+		else /*if ((*a)->next->next->next->id == min
+				|| (*a)->next->next->next->id == max)*/
+			print_moves(a, b, 'R', reverse_rotate);
+	}
+	sorting_three(a);
+	if (is_sorted(*a) != 0 || (*a)->id != 0 || (last_node(*a))->id != max)
+		five_last_sort(a, b);
+	return (0);
 }
