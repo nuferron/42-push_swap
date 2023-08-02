@@ -95,10 +95,7 @@ int	distributor(t_stack **a, t_stack **b)
 
 	max_id = getting_max_id(*a);
 	if (max_id == 1)
-	{
-		swap(a);
-		write(1, "sa\n", 3);
-	}
+		swap(a, 's', 'a');
 	else if (max_id == 2)
 		sorting_three(a);
 	else if (max_id == 3)
@@ -106,11 +103,11 @@ int	distributor(t_stack **a, t_stack **b)
 	else if (max_id == 4)
 		sorting_five(a, b);
 	else
-		ft_printf("\n\nWTF\n\n");
+		ft_printf("\n\nWTF SORTED!\n\n");
 	return (0);
 }
 
-int	print_moves(t_stack **a, t_stack **b, char m, void (*ft)(t_stack**))
+/*int	print_moves(t_stack **a, t_stack **b, char m, void (*ft)(t_stack**))
 {
 	if (m == 'b')
 	{
@@ -131,6 +128,30 @@ int	print_moves(t_stack **a, t_stack **b, char m, void (*ft)(t_stack**))
 	if (m == 'R')
 		return (ft_printf("rra\n"));
 	return (0);
+}*/
+
+void	print_moves(char move, char stack)
+{
+	if (move == 'S')
+		ft_printf("ss\n");
+	else if (move == 'R')
+		ft_printf("rr\n");
+	else if (move == 'V')
+		ft_printf("rrr");
+	if (move == 'S' || move == 'R' || move == 'V')
+		return ;
+	if (move == 's')
+		ft_printf("s");
+	else if (move == 'r')
+		ft_printf("r");
+	else if (move == 'v')
+		ft_printf("rr");
+	else if (move == 'p')
+		ft_printf("p");
+	if (stack == 'a')
+		ft_printf("a\n");
+	else if (stack == 'b')
+		ft_printf("b\n");
 }
 
 int	main(int argc, char **argv)
@@ -146,16 +167,17 @@ int	main(int argc, char **argv)
 	creating_stack(argc, argv, &a);
 	print_stack(a, "initial stack:");
 	if (is_sorted(a) == 0)
-		return (ft_printf("Already sorted\n"));
+		return (ft_printf("ALREADY SORTED! 😎\n"));
 	voltes = distributor(&a, &b);
 	if (voltes == 12)
+		ft_printf("NOT SORTED! 🤬\nFUCK\n");
 		write(1, "FUCK 🤬\n", 5);
 	ft_printf("\nMOV COUNT: %d\n", voltes);
 	if (is_sorted(a) == 0 && (last_node(a))->id == getting_max_id(a)
 		&& a->id == 0)
 		ft_printf("SORTED! 🥳\n\n");
 	else
-		ft_printf("NOT SORTED 🤬\n\n");
+		ft_printf("NOT SORTED! 🤬\n\n");
 	print_stack(b, "stack b:");
 	print_stack(a, "stack a:");
 }

@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	swap(t_stack **stack)
+void	swap(t_stack **stack, char m, char s)
 {
 	int	tmp_input;
 	int	tmp_id;
@@ -11,9 +11,10 @@ void	swap(t_stack **stack)
 	(*stack)->id = (*stack)->next->id;
 	(*stack)->next->input = tmp_input;
 	(*stack)->next->id = tmp_id;
+	print_moves(m, s);
 }
 
-void	push(t_stack **src, t_stack **dst)
+void	push(t_stack **src, t_stack **dst, char m, char s)
 {
 	t_stack	*tmp;
 
@@ -30,9 +31,10 @@ void	push(t_stack **src, t_stack **dst)
 		*src = (*src)->next;
 		(*dst)->next = tmp;
 	}
+	print_moves(m, s);
 }
 
-void	rotate(t_stack **stack)
+void	rotate(t_stack **stack, char m, char s)
 {
 	t_stack	*last;
 	t_stack	*second;
@@ -42,14 +44,15 @@ void	rotate(t_stack **stack)
 	last->next = (*stack);
 	(*stack)->next = NULL;
 	(*stack) = second;
+	print_moves(m, s);
 }
 
-void	reverse_rotate(t_stack **stack)
+void	reverse_rotate(t_stack **stack, char m, char s)
 {
 	int		n;
-	int		m;
+	int		o;
 	int		n1;
-	int		m1;
+	int		o1;
 	t_stack	*fil;
 
 	fil = (*stack);
@@ -58,14 +61,15 @@ void	reverse_rotate(t_stack **stack)
 	while ((*stack)->next != NULL)
 	{
 		(*stack) = (*stack)->next;
-		m = (*stack)->input;
-		m1 = (*stack)->id;
+		o = (*stack)->input;
+		o1 = (*stack)->id;
 		(*stack)->input = n;
 		(*stack)->id = n1;
-		n = m;
-		n1 = m1;
+		n = o;
+		n1 = o1;
 	}
 	(*stack) = fil;
 	(*stack)->input = n;
 	(*stack)->id = n1;
+	print_moves(m, s);
 }

@@ -17,10 +17,10 @@ typedef struct s_stack
 t_stack		*new_node(int num, int id);
 t_stack		*last_node(t_stack *stack);
 void		add_back(t_stack **stack, t_stack *new);
-void		swap(t_stack **stack);
-void		push(t_stack **src, t_stack **dst);
-void		rotate(t_stack **stack);
-void		reverse_rotate(t_stack **stack);
+void		swap(t_stack **stack, char m, char s);
+void		push(t_stack **src, t_stack **dst, char s, char m);
+void		rotate(t_stack **stack, char s, char m);
+void		reverse_rotate(t_stack **stack, char s, char m);
 long long	ft_atoll(char *str);
 int			is_duplicated(int total, int i, int num);
 int			checking_input(int argc, char **input);
@@ -28,10 +28,10 @@ int			getting_max_id(t_stack *stack);
 int			getting_min_id(t_stack *stack);
 int			is_sorted(t_stack *stack);
 void		print_stack(t_stack *stack, char *str);
-int			sorting_three(t_stack **a);
+void		sorting_three(t_stack **a);
 void		sorting_four(t_stack **a, t_stack **b, t_stack *last);
-int			sorting_five(t_stack **a, t_stack **b);
+void			sorting_five(t_stack **a, t_stack **b);
 int			element_num(t_stack *stack);
-int			print_moves(t_stack **a, t_stack **b, char m, void (*f)(t_stack**));
+void		print_moves(char move, char stack);
 
 #endif
