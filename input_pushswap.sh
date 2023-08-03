@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-charset=({1..5})
+charset=({1..10})
 permute(){
   (($1 == 0)) && {
 	if echo "$2" | grep -q '\([123456789]\).*\1' ; then
@@ -14,5 +14,6 @@ permute(){
     permute "$((${1} - 1 ))" "$2$char"
   done
 }
-permute 5
+permute 10
 
+#while [ 1 ]; do ./push_swap $(ruby -e “puts (1..100).to_a.shuffle.join(' ')“) | wc -l; contador=$((contador + 1)); done

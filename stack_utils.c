@@ -34,3 +34,16 @@ void	add_back(t_stack **stack, t_stack *new)
 	aux = last_node(*stack);
 	aux->next = new;
 }
+
+int	free_mem(t_stack *stack)
+{
+	t_stack	*tmp;
+
+	while (stack->next != NULL)
+	{
+		tmp = stack->next;
+		free(stack);
+		stack = tmp;
+	}
+	return (-1);
+}

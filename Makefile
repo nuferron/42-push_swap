@@ -1,4 +1,5 @@
-SRCS =	push_swap.c build_stack.c movements.c errors.c sorting_stuff.c
+SRCS =	push_swap.c stack_utils.c movements.c errors.c sorting_till_five.c \
+		get_stack.c utils.c sorting_algorithm.c \
 
 OBJS = ${SRCS:.c=.o}
 
