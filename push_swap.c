@@ -56,6 +56,6 @@ int	main(int argc, char **argv)
 		ft_printf("SORTED! 🥳\n");
 	else
 		ft_printf("NOT SORTED! 🤬\n\n");
-	//print_stack(b, "stack b:");
-	//print_stack(a, "stack a:");
+	print_stack(b, "stack b:");
+	print_stack(a, "stack a:");
 }

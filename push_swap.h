@@ -35,7 +35,7 @@ void		reverse_rotate(t_stack **stack, char s, char m);
 void		rotate(t_stack **stack, char s, char m);
 void		sorting_five(t_stack **a, t_stack **b);
 void		sorting_four(t_stack **a, t_stack **b, t_stack *last);
-void			sorting_more(t_stack **a, t_stack **b);
+void		sorting_more(t_stack **a, t_stack **b);
 void		sorting_three(t_stack **a);
 void		swap(t_stack **stack, char m, char s);
 int			where_is(t_stack *stack, int num);
