@@ -23,7 +23,7 @@ long long	ft_atoll(char *str)
 	return (num * neg);
 }
 
-int	is_duplicated(int total, int i, int num)
+char	*is_duplicated(int argc, int i, int num)
 {
 	static int	*elements = NULL;
 	int			j;
@@ -31,18 +31,23 @@ int	is_duplicated(int total, int i, int num)
 	j = 0;
 	if (!elements)
 	{
-		elements = (int *)ft_calloc(total, sizeof (int));
+		elements = (int *)ft_calloc(argc, sizeof(int));
 		if (!elements)
-			return (-1);
+			return (NULL);
 	}
 	while (j < i)
 	{
 		if (elements[j] == num)
-			return (-1);
+		{
+			free(elements);
+			return (NULL);
+		}
 		j++;
 	}
 	elements[i] = num;
-	return (0);
+	if (i == argc - 1)
+		free(elements);
+	return ("OK");
 }
 
 int	checking_input(int argc, char **input)
@@ -64,7 +69,7 @@ int	checking_input(int argc, char **input)
 		}
 		if (ft_atoll(input[i]) > 2147483647 || ft_atoll(input[i]) < -2147483648)
 			return (-1);
-		if (is_duplicated(argc, i - 1, ft_atoll(input[i])) == -1)
+		if (is_duplicated(argc, i - 1, ft_atoll(input[i])) == NULL)
 			return (-1);
 		i++;
 	}

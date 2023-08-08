@@ -67,7 +67,7 @@ void	print_moves(char move, char stack)
 	else if (move == 'R')
 		ft_printf("rr\n");
 	else if (move == 'V')
-		ft_printf("rrr");
+		ft_printf("rrr\n");
 	if (move == 'S' || move == 'R' || move == 'V')
 		return ;
 	if (move == 's')

@@ -22,7 +22,7 @@ long long	ft_atoll(char *str);
 int			free_mem(t_stack *stack);
 int			getting_a(t_stack **stack, int num, int id);
 int			getting_id(int argc, int *elements, int num);
-int			is_duplicated(int total, int i, int num);
+char		*is_duplicated(int total, int i, int num);
 int			is_max(t_stack *stack);
 int			is_min(t_stack *stack);
 int			is_sorted(t_stack *stack);

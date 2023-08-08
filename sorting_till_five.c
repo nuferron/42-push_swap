@@ -60,7 +60,6 @@ void	five_last_sort(t_stack **a, t_stack **b)
 	if (((*a)->next->id > max / 2 && (*a)->id > (*a)->next->id)
 		|| ((*a)->next->id > max / 2 && (*a)->id - (*a)->next->id != 1))
 		swap(a, 's', 'a');
-	print_stack(*a, "wtf1:");
 	while (is_sorted(*a) != 0)
 		rotate(a, 'r', 'a');
 }

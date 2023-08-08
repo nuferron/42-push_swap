@@ -39,7 +39,7 @@ int	free_mem(t_stack *stack)
 {
 	t_stack	*tmp;
 
-	while (stack->next != NULL)
+	while (stack)
 	{
 		tmp = stack->next;
 		free(stack);

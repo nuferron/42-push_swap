@@ -41,39 +41,50 @@ void sorting_more(t_stack **a, t_stack **b)
 	int	x;
 
 	x = 1;
-	while (element_num(*a) > 1 && is_sorted(*a) != 0)
+	while (is_sorted(*a) != 0)
 	{
 		last = last_node(*a);
-		if ((*a)->id < 10 * x && (*a)->id != is_max(*a))
-			push(a, b, 'p', 'b');
-		else if ((*a)->next->id < 10 * x)
-			swap(a, 's', 'a');
-		else if (last->id < 10 * x)
-			reverse_rotate(a, 'v', 'a');
-		else
-			rotate(a, 'r', 'a');
-		if (element_num(*b) == 10 * x)
-			x++;
-	}
-	//print_stack(*a, "stack a:");
-	//print_stack(*b, "stack b:");
-	int	i = 0;
-	while(*b && i < 13)
-	{
-		if ((*b)->id == is_max(*b) || (*b)->next->id == is_max(*b))
-			push(b, a, 'p', 'a');
-		else if ((*a)->id != is_min(*a) && (*b)->id < (*b)->next->id)
+		if (*b && (*b)->next && (*a)->id - (*a)->next->id == 1
+			&& (*b)->next->id - (*b)->id == 1)
 		{
 			swap(a, 'S', 0);
 			swap(b, 0, 0);
 		}
 		else if ((*a)->id - (*a)->next->id == 1)
 			swap(a, 's', 'a');
+		else if (last->id < 10 * x && (*a)->id < 10 * x && last->id < (*a)->id
+				&& *b && last_node(*b)->id > (*b)->id)
+			reverse_rotate(a, 'V', 0);
+		else if (last->id < 10 * x && (*a)->id < 10 * x && last->id < (*a)->id)
+			reverse_rotate(a, 'v', 'a');
+		else if ((*a)->id < 10 * x && (*a)->id != is_max(*a) && (*a)->id != is_max(*a) - 1)
+			push(a, b, 'p', 'b');
+		else
+			rotate(a, 'r', 'a');
+		if (element_num(*b) == 10 * x)
+			x++;
+	}
+	//ft_printf("FINAL DE LA PRIMERA PART\n");
+	//print_stack(*a, "stack a:");
+	//print_stack(*b, "stack b:");
+	while (*b)
+	{
+		if ((*b) && (*b)->next && (*a)->id - (*a)->next->id == 1
+			&& (*b)->id - (*b)->next->id == 1)
+		{
+			swap(a, 'S', 0);
+			swap(b, 0, 0);
+		}
+		else if ((*a)->id - (*a)->next->id == 1)
+			swap(a, 's', 'a');
+		else if (((*b)->id == is_max(*b) || ((*b)->next->id == is_max(*b)
+				&& (*b)->id - (*b)->next->id == -1)))
+			push(b, a, 'p', 'a');
 		else if (where_is(*b, is_max(*b)) > element_num(*b) / 2)
 			reverse_rotate(b, 'v', 'b');
-		else /*if (where_is(*b, is_max(*b)) < element_num(*b) / 2)*/
-			rotate(b, 'r', 'b');
-		i++;
-		print_stack(*a, "stack a:");
+		else
+			rotate(b, 'r', 'a');
 	}
+	if (is_sorted(*a) != 0)
+		swap(a, 's', 'a');
 }
