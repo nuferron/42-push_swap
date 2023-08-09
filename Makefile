@@ -1,5 +1,17 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
+#    Updated: 2023/08/09 15:37:53 by nuferron         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS =	push_swap.c stack_utils.c movements.c errors.c sorting_till_five.c \
-		get_stack.c utils.c sorting_algorithm.c \
+		get_stack.c utils.c sorting_algorithm.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -25,11 +37,13 @@ leaks:
 	leaks -atExit -- ./${BIN} ${ARGS}
 
 norm:
-	norminette ${SRCS}
+	make -C ft_printf norm --no-print-directory
+	norminette ${SRCS} | grep -v "OK" | awk '{if($$2 == "Error!") \
+	print "\033[1;31;m"$$1" "$$2; else print "\033[0;m"$$0}'
 
 run: all
-	cc ${CFLAGS} push_swap.c ${NAME} -o ${BIN}
-	@#./${BIN} ${ARGS}
+	@cc ${CFLAGS} push_swap.c ${NAME} -o ${BIN}
+	@./${BIN} `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"` | wc -l
 
 clean:
 	@rm -f ${OBJS} $ ${OBJS_BONUS}
@@ -43,4 +57,5 @@ fclean:	clean
 
 re:	fclean all
 
+.SILENT: norm do_bonus make_libs
 .PHONY: all clean fclean re
