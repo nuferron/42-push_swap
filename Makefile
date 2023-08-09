@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/09 15:37:53 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/09 16:25:08 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ HEADER = push_swap.h
 HEADER_LIBFT = libft/libft.h
 CFLAGS = -Wall -Wextra -Werror
 BIN = push_swap
+MAX = 100
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -51,7 +52,6 @@ clean:
 
 fclean:	clean
 	@rm -f ${NAME}
-	rm -f bonus do_bonus
 	rm -f ${BIN}
 	@make -C ft_printf fclean --no-print-directory
 
