@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 13:16:35 by nuferron          #+#    #+#             */
+/*   Updated: 2023/08/09 15:02:31 by nuferron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	print_stack(t_stack *stack, char *str)
@@ -34,10 +46,11 @@ void	distributor(t_stack **a, t_stack **b)
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
-	t_stack *b = NULL;
+	t_stack	*b;
 	int		i;
 
 	i = 1;
+	b = NULL;
 	if (argc < 2)
 		return (ft_printf("\n"));
 	if (argv[1][0] == '\0' || checking_input(argc, argv) == -1)

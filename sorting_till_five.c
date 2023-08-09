@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sorting_till_five.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 13:26:34 by nuferron          #+#    #+#             */
+/*   Updated: 2023/08/09 15:08:19 by nuferron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	sorting_three(t_stack **a)
@@ -15,18 +27,6 @@ void	sorting_three(t_stack **a)
 			rotate(a, 'r', 'a');
 	}
 }
-
-/*void	sorting_three(t_stack **a)
-{
-	while (is_sorted(*a) != 0)
-	{
-		last = last_node(*a);
-		if (where_is((*a, 2) == 0)
-			rotate(a, 'r', 'a');
-		else
-			swap(a, 's', 'a');
-	}
-}*/
 
 void	sorting_four(t_stack **a, t_stack **b, t_stack *last)
 {
@@ -77,7 +77,7 @@ void	sorting_five(t_stack **a, t_stack **b)
 			push(a, b, 'p', 'b');
 		else if ((*a)->next->id == min || (*a)->next->id == max)
 			swap(a, 's', 'a');
-		else if ((*a)->next->next->id == min ||(*a)->next->next->id == max)
+		else if ((*a)->next->next->id == min || (*a)->next->next->id == max)
 			rotate(a, 'r', 'a');
 		else 
 			reverse_rotate(a, 'v', 'a');

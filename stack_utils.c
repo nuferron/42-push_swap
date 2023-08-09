@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 13:25:31 by nuferron          #+#    #+#             */
+/*   Updated: 2023/08/09 13:25:35 by nuferron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_stack	*new_node(int num, int id)
@@ -13,7 +25,7 @@ t_stack	*new_node(int num, int id)
 	return (element);
 }
 
-t_stack *last_node(t_stack *stack)
+t_stack	*last_node(t_stack *stack)
 {
 	if (!stack)
 		return (stack);
@@ -24,7 +36,7 @@ t_stack *last_node(t_stack *stack)
 
 void	add_back(t_stack **stack, t_stack *new)
 {
-	t_stack *aux;
+	t_stack	*aux;
 
 	if (!(*stack))
 	{

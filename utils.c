@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 13:26:58 by nuferron          #+#    #+#             */
+/*   Updated: 2023/08/09 13:27:00 by nuferron         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	element_num(t_stack *stack)
@@ -29,7 +41,7 @@ int	is_max(t_stack *stack)
 
 int	is_min(t_stack *stack)
 {
-	int	id;
+	int		id;
 	t_stack	*tmp;
 
 	id = 0;
