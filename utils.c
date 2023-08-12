@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:26:58 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/09 13:27:00 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/11 23:16:34 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,24 +74,14 @@ int	is_sorted(t_stack *stack)
 
 void	print_moves(char move, char stack)
 {
-	if (move == 'S')
-		ft_printf("ss\n");
-	else if (move == 'R')
-		ft_printf("rr\n");
-	else if (move == 'V')
-		ft_printf("rrr\n");
-	if (move == 'S' || move == 'R' || move == 'V')
+	if (stack == '0')
 		return ;
-	if (move == 's')
-		ft_printf("s");
-	else if (move == 'r')
-		ft_printf("r");
-	else if (move == 'v')
-		ft_printf("rr");
-	else if (move == 'p')
-		ft_printf("p");
-	if (stack == 'a')
-		ft_printf("a\n");
-	else if (stack == 'b')
-		ft_printf("b\n");
+	else if (stack != '2' && move != 'R')
+		ft_printf("%c%c\n", move, stack);
+	else if (stack != '2' && move == 'R')
+		ft_printf("rr%c\n", stack);
+	else if (stack == '2' && (move == 's' || move == 'r'))
+		ft_printf("%c%c\n", move, move);
+	else if (stack == '2' && move == 'R')
+		ft_printf("rrr\n");
 }
