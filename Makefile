@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/09 16:25:08 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/11 22:29:34 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,11 @@ make_libs:
 ${NAME}: ${OBJS}
 	cp ft_printf/libftprintf.a ${NAME}
 	ar crs ${NAME} ${OBJS}
+	@cc ${CFLAGS} push_swap.c ${NAME} -o ${BIN}
 
-leaks:
-	leaks -atExit -- ./${BIN} ${ARGS}
+leaks: all
+	leaks -atExit -- ./${BIN} \
+	`ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
 
 norm:
 	make -C ft_printf norm --no-print-directory
@@ -43,8 +45,7 @@ norm:
 	print "\033[1;31;m"$$1" "$$2; else print "\033[0;m"$$0}'
 
 run: all
-	@cc ${CFLAGS} push_swap.c ${NAME} -o ${BIN}
-	@./${BIN} `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"` | wc -l
+	@./${BIN} `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
 
 clean:
 	@rm -f ${OBJS} $ ${OBJS_BONUS}
