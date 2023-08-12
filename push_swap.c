@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:16:35 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/09 15:02:31 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:02:04 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ void	print_stack(t_stack *stack, char *str)
 {
 	if (!stack)
 		return ;
-	while (stack->next != NULL)
+	while (stack)
 	{
 		ft_printf("%s id: %d\n", str, stack->id);
 		stack = stack->next;
 	}
-	if (stack->next == NULL)
-		ft_printf("%s id: %d\n", str, stack->id);
 	ft_printf("\n");
 }
 
@@ -32,7 +30,7 @@ void	distributor(t_stack **a, t_stack **b)
 
 	max_id = is_max(*a);
 	if (max_id == 1)
-		swap(a, 's', 'a');
+		swap(a, 'a');
 	else if (max_id == 2)
 		sorting_three(a);
 	else if (max_id == 3)
@@ -52,15 +50,16 @@ int	main(int argc, char **argv)
 	i = 1;
 	b = NULL;
 	if (argc < 2)
-		return (ft_printf("\n"));
+		return (-1);
 	if (argv[1][0] == '\0' || checking_input(argc, argv) == -1)
 		return (ft_printf("Error\n"));
 	creating_stack(argc, argv, &a);
 	if (is_sorted(a) == 0)
 	{
 		free_mem(a);
-		return (ft_printf("\n"));
+		return (1);
 	}
 	distributor(&a, &b);
 	free_mem(a);
+	return (0);
 }
