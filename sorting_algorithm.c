@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:29:15 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/09 15:36:30 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:13:45 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,51 +29,95 @@ int	where_is(t_stack *stack, int num)
 	return (-1);
 }
 
-void	from_a_to_b(t_stack **a, t_stack **b, int x)
+int	less_moves(t_stack *stack, int max)
+{
+	int		top;
+	int		bottom;
+	t_stack	*last;
+
+	top = 0;
+	bottom = 0;
+	last = last_node(stack);
+	while (stack)
+	{
+		if (stack->id < max)
+			break ;
+		top++;
+		stack = stack->next;
+	}
+	while (last)
+	{
+		if (last->id < max)
+			break ;
+		bottom++;
+		last = last->prev;
+	}
+	if (bottom < top)
+		return (-bottom);
+	return (top);
+}
+
+void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
 {
 	t_stack	*last;
 
 	while (is_sorted(*a) != 0)
 	{
 		last = last_node(*a);
-		if ((*a)->id - (*a)->next->id == 1)
-			swap(a, 's', 'a');
-		else if (last->id < 10 * x && (*a)->id < 10 * x && last->id < (*a)->id
-			&& *b && last_node(*b)->id > (*b)->id)
-			reverse_rotate(a, 'V', 0);
-		else if (last->id < 10 * x && (*a)->id < 10 * x && last->id < (*a)->id)
-			reverse_rotate(a, 'v', 'a');
-		else if ((*a)->id < 10 * x && (*a)->id != is_max(*a)
+		if ((*a)->id < y * x && (*a)->id != is_max(*a)
 			&& (*a)->id != is_max(*a) - 1)
-			push(a, b, 'p', 'b');
+		{
+			push(a, b, 'b');
+			if (*b && (*b)->next && (*b)->id < (x * y - y / 2))
+				rotate(b, 'b');
+		}
+		else if (less_moves(*a, x * y) <= 0)
+			reverse_rotate(a, 'a');
 		else
-			rotate(a, 'r', 'a');
-		if (element_num(*b) == 10 * x)
+			rotate(a, 'a');
+		if (element_num(*b) == x * y)
 			x++;
+	}
+}
+
+void	from_b_to_a(t_stack **a, t_stack **b)
+{
+	while (*b)
+	{
+		if ((*b)->id == is_max(*b) || (*b)->id == is_max(*b) - 1)
+			push(b, a, 'a');
+		else if (where_is(*b, is_max(*b)) > element_num(*b) / 2)
+			reverse_rotate(b, 'b');
+		else
+			rotate(b, 'b');
 	}
 }
 
 void	sorting_more(t_stack **a, t_stack **b)
 {
-	from_a_to_b(a, b, 1);
-	while (*b)
+	if (element_num(*a) >= 500)
+		from_a_to_b(a, b, 1, element_num(*a) / 8);
+	else
+		from_a_to_b(a, b, 1, element_num(*a) / 4);
+	/*while (*b)
 	{
 		if ((*b) && (*b)->next && (*a)->id - (*a)->next->id == 1
 			&& (*b)->id - (*b)->next->id == 1)
 		{
-			swap(a, 'S', 0);
-			swap(b, 0, 0);
+			swap(a, '2');
+			swap(b, '0');
 		}
 		else if ((*a)->id - (*a)->next->id == 1)
-			swap(a, 's', 'a');
+			swap(a, 'a');
 		else if (((*b)->id == is_max(*b) || ((*b)->next->id == is_max(*b)
 					&& (*b)->id - (*b)->next->id == -1)))
-			push(b, a, 'p', 'a');
+			push(b, a, 'a');
 		else if (where_is(*b, is_max(*b)) > element_num(*b) / 2)
-			reverse_rotate(b, 'v', 'b');
+			reverse_rotate(b, 'b');
 		else
-			rotate(b, 'r', 'b');
-	}
+			rotate(b, 'b');
+	}*/
+	from_b_to_a(a, b);
 	if (is_sorted(*a) != 0)
-		swap(a, 's', 'a');
+		swap(a, 'a');
 }
