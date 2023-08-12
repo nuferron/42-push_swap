@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:25:31 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/09 13:25:35 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/12 12:06:56 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_stack	*new_node(int num, int id)
 	element->input = num;
 	element->id = id;
 	element->next = NULL;
+	element->prev = NULL;
 	return (element);
 }
 
@@ -45,6 +46,7 @@ void	add_back(t_stack **stack, t_stack *new)
 	}
 	aux = last_node(*stack);
 	aux->next = new;
+	new->prev = aux;
 }
 
 int	free_mem(t_stack *stack)

@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/09 15:03:03 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/12 12:00:54 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_stack
 	int				input;
 	int				id;
 	struct s_stack	*next;
+	struct s_stack	*prev;
 }					t_stack;
 
 void		add_back(t_stack **stack, t_stack *new);
@@ -42,14 +43,14 @@ t_stack		*last_node(t_stack *stack);
 t_stack		*new_node(int num, int id);
 void		print_moves(char move, char stack);
 void		print_stack(t_stack *stack, char *str);
-void		push(t_stack **src, t_stack **dst, char s, char m);
-void		reverse_rotate(t_stack **stack, char s, char m);
-void		rotate(t_stack **stack, char s, char m);
+void		push(t_stack **src, t_stack **dst, char s);
+void		reverse_rotate(t_stack **stack, char s);
+void		rotate(t_stack **stack, char s);
 void		sorting_five(t_stack **a, t_stack **b);
 void		sorting_four(t_stack **a, t_stack **b, t_stack *last);
 void		sorting_more(t_stack **a, t_stack **b);
 void		sorting_three(t_stack **a);
-void		swap(t_stack **stack, char m, char s);
+void		swap(t_stack **stack, char s);
 int			where_is(t_stack *stack, int num);
 
 #endif

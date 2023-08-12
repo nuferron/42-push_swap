@@ -6,12 +6,12 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/08 00:04:01 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:04:33 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	swap(t_stack **stack, char m, char s)
+void	swap(t_stack **stack, char s)
 {
 	int	tmp_input;
 	int	tmp_id;
@@ -22,10 +22,10 @@ void	swap(t_stack **stack, char m, char s)
 	(*stack)->id = (*stack)->next->id;
 	(*stack)->next->input = tmp_input;
 	(*stack)->next->id = tmp_id;
-	print_moves(m, s);
+	print_moves('s', s);
 }
 
-void	push(t_stack **src, t_stack **dst, char m, char s)
+void	push(t_stack **src, t_stack **dst, char s)
 {
 	t_stack	*tmp;
 
@@ -41,11 +41,12 @@ void	push(t_stack **src, t_stack **dst, char m, char s)
 		*dst = *src;
 		*src = (*src)->next;
 		(*dst)->next = tmp;
+		((*dst)->next)->prev = *dst;
 	}
-	print_moves(m, s);
+	print_moves('p', s);
 }
 
-void	rotate(t_stack **stack, char m, char s)
+void	rotate(t_stack **stack, char s)
 {
 	t_stack	*last;
 	t_stack	*second;
@@ -54,11 +55,13 @@ void	rotate(t_stack **stack, char m, char s)
 	second = (*stack)->next;
 	last->next = (*stack);
 	(*stack)->next = NULL;
+	(*stack)->prev = last;
 	(*stack) = second;
-	print_moves(m, s);
+	(*stack)->prev = NULL;
+	print_moves('r', s);
 }
 
-void	reverse_rotate(t_stack **stack, char m, char s)
+void	reverse_rotate(t_stack **stack, char s)
 {
 	int		n;
 	int		o;
@@ -82,5 +85,5 @@ void	reverse_rotate(t_stack **stack, char m, char s)
 	(*stack) = fil;
 	(*stack)->input = n;
 	(*stack)->id = n1;
-	print_moves(m, s);
+	print_moves('R', s);
 }
