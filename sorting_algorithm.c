@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:29:15 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/13 01:32:20 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/13 13:06:11 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ void	from_b_to_a(t_stack **a, t_stack **b)
 		else if (where_is(*b, is_max(*b)) > element_num(*b) / 2)
 			reverse_rotate(b, 'b');
 		else
-		{
-			write(1, "rot\t", 4);
 			rotate(b, 'b');
-		}
 	}
 }
 

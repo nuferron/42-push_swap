@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:25:31 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/12 12:06:56 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:40:30 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,16 @@ int	free_mem(t_stack *stack)
 		stack = tmp;
 	}
 	return (-1);
+}
+
+void	print_stack(t_stack *stack, char *str)
+{
+	if (!stack)
+		return ;
+	while (stack)
+	{
+		ft_printf("%s id: %d\n", str, stack->id);
+		stack = stack->next;
+	}
+	ft_printf("\n");
 }
