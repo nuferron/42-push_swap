@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/13 20:48:39 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/13 21:29:27 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,21 @@ OBJS = ${SRCS:.c=.o}
 
 NAME = push_swap.a
 HEADER = push_swap.h
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 BIN = push_swap
 BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
+#NUMS := $(shell ruby -e "puts (1..$(MAX).to_a.shuffle.join(' '))")
+
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all: make_libs ${NAME}
+
+test:
+	echo $(NUMS)
 
 make_libs:
 	@make -C inc/ft_printf/ --no-print-directory
@@ -54,6 +59,12 @@ run: | all
 bonus: | all
 	cc ${CFLAGS} ${SRCS_BNS} ${NAME} -o ${BIN_BNS}
 	@touch $@
+
+leaks_bonus: | all bonus
+	@echo $(NUMS) > combination
+	$(eval FINAL_NUMS := $(shell cat combination))
+	./${BIN} ${FINAL_NUMS} | leaks -atExit -- ./${BIN_BNS} ${FINAL_NUMS}
+	@rm -f combination
 
 clean:
 	rm -f ${OBJS} $ ${OBJS_BNS}
