@@ -6,14 +6,15 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/12 12:00:54 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/13 13:56:21 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "ft_printf/libftprintf.h"
-# include "ft_printf/libft/libft.h"
+# include "inc/ft_printf/libftprintf.h"
+# include "inc/ft_printf/libft/libft.h"
+# include "inc/gnl/gnl.h"
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
