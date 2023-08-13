@@ -6,23 +6,11 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:16:35 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/13 01:35:04 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:40:40 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	print_stack(t_stack *stack, char *str)
-{
-	if (!stack)
-		return ;
-	while (stack)
-	{
-		ft_printf("%s id: %d\n", str, stack->id);
-		stack = stack->next;
-	}
-	ft_printf("\n");
-}
 
 void	distributor(t_stack **a, t_stack **b)
 {
@@ -49,6 +37,7 @@ int	main(int argc, char **argv)
 
 	i = 1;
 	b = NULL;
+	a = NULL;
 	if (argc < 2)
 		return (-1);
 	if (argv[1][0] == '\0' || checking_input(argc, argv) == -1)
