@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/13 21:29:27 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/14 20:14:36 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
 #NUMS := $(shell ruby -e "puts (1..$(MAX).to_a.shuffle.join(' '))")
-
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
