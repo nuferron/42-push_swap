@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/15 12:49:04 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/15 12:57:51 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
 PURPLE = \033[1;31;m
+DEFAULT = \033[0;m
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -50,7 +51,7 @@ leaks: | all
 norm:
 	make -C inc/ft_printf norm --no-print-directory
 	norminette ${SRCS} ${SRCS_BNS} | grep -v "OK" | awk '{if($$2 == "Error!") \
-	print "${PURPLE}"$$1" "$$2; else print "\033[0;m"$$0}'
+	print "${PURPLE}"$$1" "$$2; else print "${DEFAULT}"$$0}'
 
 run: | all
 	@./${BIN} ${NUMS}
