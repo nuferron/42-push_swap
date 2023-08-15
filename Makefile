@@ -25,7 +25,6 @@ BIN = push_swap
 BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
-#NUMS := $(shell ruby -e "puts (1..$(MAX).to_a.shuffle.join(' '))")
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
