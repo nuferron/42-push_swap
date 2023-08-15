@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:25:31 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/13 14:40:30 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:25:58 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,25 @@ void	print_stack(t_stack *stack, char *str)
 {
 	if (!stack)
 		return ;
-	while (stack)
+	if (str[6] == 'a')
 	{
-		ft_printf("%s id: %d\n", str, stack->id);
-		stack = stack->next;
+		while (stack)
+		{
+			ft_printf("\033[0;32m");
+			ft_printf("%s input: %d\n", str, stack->input);
+			ft_printf("\033[0;m");
+			stack = stack->next;
+		}
+	}
+	else
+	{
+		while (stack)
+		{
+			ft_printf("\033[0;35m");
+			ft_printf("%s input: %d\n", str, stack->input);
+			ft_printf("\033[0;m");
+			stack = stack->next;
+		}
 	}
 	ft_printf("\n");
 }

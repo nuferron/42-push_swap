@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/13 13:56:21 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:53:33 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ void		sorting_more(t_stack **a, t_stack **b);
 void		sorting_three(t_stack **a);
 void		swap(t_stack **stack, char s);
 int			where_is(t_stack *stack, int num);
+int			do_push(t_stack **a, t_stack **b, char *str);
+int			do_swap(t_stack **a, t_stack **b, char *str);
+int			do_rot(t_stack **a, t_stack **b, char *str);
+int			do_rr(t_stack **a, t_stack **b, char *str);
 
 #endif
