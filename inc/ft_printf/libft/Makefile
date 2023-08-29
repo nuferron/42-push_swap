@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/10 18:05:14 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/09 13:02:04 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/17 16:05:31 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ bonus:		${OBJS} ${OBJSBONUS} ${HEADER}
 			@touch $@
 
 norm:
-	norminette ${SRCS} | grep -v "OK" | awk '{if($$2 == "Error!") \
+	norminette ${SRCS} ${HEADER} | grep -v "OK" | awk '{if($$2 == "Error!") \
 	print "\033[1;31;m"$$1" "$$2; else print "\033[0;m"$$0}'
 
 clean: 		

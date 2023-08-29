@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 00:01:43 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/13 13:03:44 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/17 16:02:59 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ do_bonus: ${OBJS_BONUS} ${HEADER_LIBFT}
 
 norm:
 	make -C libft norm --no-print-directory
-	norminette ${SRCS} | grep -v "OK" | awk '{if($$2 == "Error!") \
+	norminette ${SRCS} ${HEADER} | grep -v "OK" | awk '{if($$2 == "Error!") \
 	print "\033[1;31;m"$$1" "$$2; else print "\033[0;m"$$0}'
 
 clean:

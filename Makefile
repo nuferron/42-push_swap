@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/08/15 12:57:51 by nuferron         ###   ########.fr        #
+#    Updated: 2023/08/14 17:31:54 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,14 @@ SRCS_BNS =	ps_bonus/checker.c ps_bonus/checker_do.c \
 OBJS = ${SRCS:.c=.o}
 
 NAME = push_swap.a
-HEADER = push_swap.h
+HEADERS = push_swap.h inc/gnl/gnl.h
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 BIN = push_swap
 BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
-PURPLE = \033[1;31;m
-DEFAULT = \033[0;m
+#NUMS := $(shell ruby -e "puts (1..$(MAX).to_a.shuffle.join(' '))")
+
 
 %.o: %.c ${HEADER}
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -50,14 +50,15 @@ leaks: | all
 
 norm:
 	make -C inc/ft_printf norm --no-print-directory
-	norminette ${SRCS} ${SRCS_BNS} | grep -v "OK" | awk '{if($$2 == "Error!") \
-	print "${PURPLE}"$$1" "$$2; else print "${DEFAULT}"$$0}'
+	norminette ${SRCS} ${SRCS_BNS} ${HEADERS} | grep -v "OK" \
+	| awk '{if($$2 == "Error!") print "\033[1;31;m"$$1" "$$2; \
+	else print "\033[0;m"$$0}'
 
 run: | all
 	@./${BIN} ${NUMS}
 	@echo ${NUMS} > combination
 
-bonus: ${SRCS_BNS} | all
+bonus: ${SRCS_BNS} | all 
 	cc ${CFLAGS} ${SRCS_BNS} ${NAME} -o ${BIN_BNS}
 	@touch $@
 
@@ -68,7 +69,7 @@ leaks_bonus: | all bonus
 	@rm -f combination
 
 clean:
-	rm -f ${OBJS} $ ${OBJS_BNS}
+	rm -f ${OBJS} $ ${OBJS_BNS} combination
 	@make -C inc/ft_printf clean --no-print-directory
 
 fclean:	clean
@@ -77,7 +78,5 @@ fclean:	clean
 
 re:	fclean all
 
-re_bonus: fclean bonus
-
 .SILENT: norm make_libs
-.PHONY: all clean fclean re re_bonus
+.PHONY: all clean fclean re

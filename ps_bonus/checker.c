@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:58:54 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/15 12:25:07 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:01:17 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	main(int argc, char **argv)
 	else if (argv[1][0] == '\0' || checking_input(argc, argv) == -1)
 		return (ft_printf("Error\n"));
 	checking_flag(argc, argv, &a, &b);
-	if (is_sorted(a) == 0)
+	if (is_sorted(a) == 0 && !b)
 		ft_printf("OK\n");
 	else
 		ft_printf("KO\n");
