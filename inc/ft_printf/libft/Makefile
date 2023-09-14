@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/10 18:05:14 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 14:52:45 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 15:13:15 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,12 @@ do_bonus:	${OBJS} ${OBJSBONUS}
 		printf "${WHITE}LIBFT: ${GREEN}Bonus compiled!${RESET}\n"
 		touch do_bonus
 
+norm:
+	printf "${WHITE}LIBFT${RESET}\n"
+	norminette $(addprefix ${SRCDIR},$(SRCS)) $(addprefix ${SRCDIR_BNS},$(SRCS_BNS)) ${HEADER} | grep -v "OK" \
+	| awk '{if($$2 == "Error!") print "${RED}"$$1" "$$2; \
+	else print "${RESET}"$$0}'
+
 $(OBJDIR)%.o:	${SRCDIR}%.c $(HEADER) | ${OBJDIR}
 		@printf "${WHITE}LIBFT:${CYAN}Compiling files: ${WHITE}$(notdir $<)...${RESET}\r"
 		@cc $(CFLAGS) -I $(HEADER) -c $< -o $@
@@ -79,5 +85,5 @@ fclean: 	clean
 
 re:		fclean all
 
-.SILENT: fclean clean ${NAME} do_bonus ${OBJDIR}
+.SILENT: fclean clean ${NAME} do_bonus ${OBJDIR} norm
 .PHONY: all clean fclean re bonus

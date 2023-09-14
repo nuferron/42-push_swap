@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 14:53:32 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 15:15:36 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ BIN_BNS = checker
 MAX = 100
 NUMS := `ruby -e "puts (1..${MAX}).to_a.shuffle.join(' ')"`
 COLUMNS = $(shell tput cols)
+HEADER = push_swap.h
 
 all: make_libs ${NAME}
 
@@ -58,9 +59,11 @@ leaks: | all
 
 norm:
 	make -C inc/ft_printf norm --no-print-directory
-	norminette ${SRCS} ${SRCS_BNS} ${HEADERS} | grep -v "OK" \
-	| awk '{if($$2 == "Error!") print "\033[1;31;m"$$1" "$$2; \
-	else print "\033[0;m"$$0}'
+	printf "${WHITE}PUSH_SWAP${RESET}\n"
+	norminette $(addprefix ${SRCDIR},$(SRCS)) $(addprefix ${SRCDIR_BNS},$(SRCS_BNS)) ${HEADER} | grep -v "OK" \
+	| awk '{if($$2 == "Error!") print "${RED}"$$1" "$$2; \
+	else print "${RESET}"$$0}'
+
 
 ${OBJDIR}%.o: ${SRCDIR}%.c ${HEADER}
 	@printf "${WHITE}PUSH_SWAP: ${CYAN}Compiling files: ${WHITE}$(notdir $<)...${RESET}\r"
@@ -106,5 +109,5 @@ fclean: 	clean
 
 re:	fclean all
 
-.SILENT: norm make_libs bonus ${NAME} leaks leaks_bonus clean fclean
+.SILENT: make_libs bonus ${NAME} leaks leaks_bonus clean fclean norm
 .PHONY: all clean fclean re

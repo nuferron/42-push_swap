@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 00:01:43 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 14:54:20 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 15:15:03 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,13 @@ do_bonus:	${OBJS_BNS}
 make_libs:
 		make -C libft bonus --no-print-directory
 
+norm:
+	make -C libft norm --no-print-directory
+	printf "${WHITE}FT_PRINTF${RESET}\n"
+	norminette $(addprefix ${SRCDIR},$(SRCS)) $(addprefix ${SRCDIR_BNS},$(SRCS_BNS)) ${HEADER} | grep -v "OK" \
+	| awk '{if($$2 == "Error!") print "${RED}"$$1" "$$2; \
+	else print "${RESET}"$$0}'
+
 ${OBJDIR}%.o:	${SRCDIR}%.c ${HEADER} | ${OBJDIR}
 		@printf "${WHITE}FT_PRINTF:${CYAN}Compiling files: ${WHITE}$(notdir $<)...${RESET}\r"
 		@cc $(CFLAGS) -I $(HEADER) -c $< -o $@
@@ -97,5 +104,5 @@ re:	fclean all
 
 re_bonus: fclean bonus
 
-.SILENT: ${NAME} ${OBJDIR} clean fclean ${OBJDIR_BNS} do_bonus make_libs
+.SILENT: ${NAME} ${OBJDIR} clean fclean ${OBJDIR_BNS} do_bonus make_libs norm
 .PHONY: all clean fclean re re_bonus bonus
