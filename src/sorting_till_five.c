@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:26:34 by nuferron          #+#    #+#             */
-/*   Updated: 2023/09/13 22:48:30 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:17:59 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	sorting_five(t_stack **a, t_stack **b)
 			swap(a, 'a');
 		else if ((*a)->next->next->id == min || (*a)->next->next->id == max)
 			rotate(a, 'a');
-		else 
+		else
 			reverse_rotate(a, 'a');
 	}
 	sorting_three(a);

@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 18:27:53 by nuferron          #+#    #+#             */
-/*   Updated: 2023/09/13 20:21:42 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:16:39 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		return (ft_strlen(src));
 	while (src[i] != '\0' && i < (dstsize - 1))
 	{
-			dst[i] = src[i];
-			i++;
+		dst[i] = src[i];
+		i++;
 	}
 	dst[i] = '\0';
 	return (ft_strlen(src));

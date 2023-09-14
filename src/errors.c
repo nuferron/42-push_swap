@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/09/13 23:35:43 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:17:25 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	checking_input(int argc, char **input)
 	while (input[i] != NULL)
 	{
 		j = 0;
-		if ((input[i][j] == '-' || input[i][j] == '+') && input[i][j++] != '\0')
+		if ((input[i][j] == '-' || input[i][j] == '+')
+				&& input[i][j++] != '\0')
 			j++;
 		while (input[i][j] != '\0')
 		{

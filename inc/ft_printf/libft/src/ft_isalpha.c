@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 18:30:52 by nuferron          #+#    #+#             */
-/*   Updated: 2023/09/13 20:21:41 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:16:19 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,4 @@ int	ft_isalpha(int c)
 		return (1);
 	else
 		return (0);
-}	
+}
