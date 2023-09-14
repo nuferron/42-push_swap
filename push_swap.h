@@ -6,7 +6,7 @@
 /*   By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 00:03:59 by nuferron          #+#    #+#             */
-/*   Updated: 2023/08/14 14:53:33 by nuferron         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:34:55 by nuferron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PUSH_SWAP_H
 # include "inc/ft_printf/libftprintf.h"
 # include "inc/ft_printf/libft/libft.h"
-# include "inc/gnl/gnl.h"
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
