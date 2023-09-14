@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/14 00:01:43 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 12:23:09 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 14:54:20 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS =	ft_printf.c printf_char.c printf_string.c printf_num.c \
 		printf_unsigned_num.c printf_pointers.c printf_hex_cap.c \
 		printf_hex_min.c \
 
-SRCS_BONUS =	ft_printf_bonus.c printf_char_bonus.c printf_string_bonus.c \
+SRCS_BNS =	ft_printf_bonus.c printf_char_bonus.c printf_string_bonus.c \
 				printf_num_bonus.c 	printf_unsigned_num_bonus.c \
 				printf_pointers_bonus.c printf_hex_cap_bonus.c \
 				printf_hex_min_bonus.c printf_percentage.c pf_bonus_padding.c \
@@ -32,12 +32,12 @@ SRCS_BONUS =	ft_printf_bonus.c printf_char_bonus.c printf_string_bonus.c \
 
 
 OBJS = $(addprefix $(OBJDIR),$(SRCS:.c=.o))
-OBJS_BONUS = $(addprefix $(OBJDIR_BONUS),$(SRCS_BONUS:.c=.o))
+OBJS_BNS = $(addprefix $(OBJDIR_BNS),$(SRCS_BNS:.c=.o))
 
 OBJDIR = obj/
-OBJDIR_BONUS = obj_bonus/
+OBJDIR_BNS = obj_bonus/
 SRCDIR = src/
-SRCDIR_BONUS = src_bonus/
+SRCDIR_BNS = src_bonus/
 NAME = libftprintf.a
 HEADER = libftprintf.h
 HEADER_LIBFT = libft/libft.h
@@ -52,10 +52,10 @@ ${NAME}:	${OBJS}
 
 bonus:		make_libs do_bonus
 
-do_bonus:	${OBJS_BONUS}
+do_bonus:	${OBJS_BNS}
 		rm -rf obj/ ${NAME}
 		cp libft/libft.a ${NAME}
-		ar rcs ${NAME} ${OBJS_BONUS}
+		ar rcs ${NAME} ${OBJS_BNS}
 		printf "${WHITE}FT_PRINTF: ${GREEN}Bonus compiled!${RESET}\n"
 		touch do_bonus
 
@@ -70,27 +70,32 @@ ${OBJDIR}%.o:	${SRCDIR}%.c ${HEADER} | ${OBJDIR}
 ${OBJDIR}:
 		mkdir -p $(dir $@)
 
-${OBJDIR_BONUS}%.o:	${SRCDIR_BONUS}%.c ${HEADER} | ${OBJDIR_BONUS}
+${OBJDIR_BNS}%.o:	${SRCDIR_BNS}%.c ${HEADER} | ${OBJDIR_BNS}
 		@printf "${WHITE}FT_PRINTF:${CYAN}Compiling files: ${WHITE}$(notdir $<)...${RESET}\r"
 		@cc $(CFLAGS) -I $(HEADER) -c $< -o $@
 		@printf "\r%-${COLUMNS}s\r" ""
 
-${OBJDIR_BONUS}:
+${OBJDIR_BNS}:
 		mkdir -p $(dir $@)
 
 clean:
-	rm -rf ${OBJDIR} ${OBJDIR_BONUS}
+	if [ -d ${OBJDIR} ] || [ -d ${OBJDIR_BNS} ]; then \
+		rm -rf ${OBJDIR} ${OBJDIR_BNS} ; \
+		printf "${WHITE}FT_PRINTF: ${RED}Objects have been deleted${RESET}\n" ; \
+	fi
 	make -C libft clean --no-print-directory
-	printf "${WHITE}FT_PRINTF: ${RED}Objects have been deleted${RESET}\n"
 
-fclean:	clean
-	rm -f ${NAME} do_bonus
-	make -C libft fclean --no-print-directory
-	printf "${WHITE}FT_PRINTF: ${RED}Static library has been deleted${RESET}\n"
+fclean: 	clean
+		if [ -e ${NAME} ] || [ -e do_bonus ] ; then \
+			rm -rf ${NAME} do_bonus ; \
+			printf "${WHITE}FT_PRINTF: ${RED}Static library has been deleted${RESET}\n" ; \
+		else printf "${WHITE}FT_PRINTF: ${PURPLE}Already cleaned${RESET}\n" ; \
+		fi
+		make -C libft fclean --no-print-directory
 
 re:	fclean all
 
 re_bonus: fclean bonus
 
-.SILENT: ${NAME} ${OBJDIR} clean fclean ${OBJDIR_BONUS} do_bonus make_libs
+.SILENT: ${NAME} ${OBJDIR} clean fclean ${OBJDIR_BNS} do_bonus make_libs
 .PHONY: all clean fclean re re_bonus bonus

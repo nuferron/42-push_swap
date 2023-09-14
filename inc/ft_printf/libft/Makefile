@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/10 18:05:14 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/13 23:20:11 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 14:52:45 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ OBJDIR = obj/
 SRCDIR = src/
 HEADER = libft.h
 NAME = libft.a
-RM = rm -rf
 CFLAGS = -Wall -Wextra -Werror
 COLUMNS = $(shell tput cols)
 
@@ -65,13 +64,18 @@ $(OBJDIR)%.o:	${SRCDIR}%.c $(HEADER) | ${OBJDIR}
 ${OBJDIR}:
 		mkdir -p $(dir $@)
 
-clean: 		
-		${RM} ${OBJDIR}
-		printf "${WHITE}LIBFT: ${RED}Objects have been deleted${RESET}\n"
+clean:
+		if [ -d ${OBJDIR} ] ; then \
+			rm -rf ${OBJDIR} ; \
+			printf "${WHITE}LIBFT: ${RED}Objects have been deleted${RESET}\n" ; \
+		fi
 
 fclean: 	clean
-		${RM} ${NAME} do_bonus
-		printf "${WHITE}LIBFT: ${RED}Static library has been deleted${RESET}\n"
+		if [ -e ${NAME} ] || [ -e do_bonus ] ; then \
+			rm -rf ${NAME} do_bonus ; \
+			printf "${WHITE}LIBFT: ${RED}Static library has been deleted${RESET}\n" ; \
+		else printf "${WHITE}LIBFT: ${PURPLE}Already cleaned${RESET}\n" ; \
+		fi
 
 re:		fclean all
 

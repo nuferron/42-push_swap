@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 12:44:13 by nuferron         ###   ########.fr        #
+#    Updated: 2023/09/14 14:53:32 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,14 +90,19 @@ leaks_bonus: | all bonus
 	rm -f combination
 
 clean:
-	rm -rf ${OBJDIR} ${OBJDIR_BNS} combination
+	if [ -d ${OBJDIR} ] || [ -d ${OBJDIR_BNS} ]; then \
+		rm -rf ${OBJDIR} ${OBJDIR_BNS} combination; \
+		printf "${WHITE}PUSH_SWAP: ${RED}Objects have been deleted${RESET}\n"; \
+	fi
 	make -C inc/ft_printf clean --no-print-directory
-	printf "${WHITE}PUSH_SWAP: ${RED}Objects have been deleted${RESET}\n"
 
-fclean:	clean
-	rm -f ${NAME} ${NAME} ${BIN_BNS} bonus libftprintf.a
+fclean: 	clean
+	if [ -e ${NAME} ] || [ -e do_bonus ] ; then \
+		rm -f ${NAME} ${BIN_BNS} do_bonus ; \
+		printf "${WHITE}PUSH_SWAP: ${RED}All existing binaries have been deleted${RESET}\n" ; \
+	else printf "${WHITE}PUSH_SWAP: ${PURPLE}Already cleaned${RESET}\n" ; \
+	fi
 	make -C inc/ft_printf fclean --no-print-directory
-	printf "${WHITE}PUSH_SWAP: ${RED}All existing binaries have been deleted${RESET}\n"
 
 re:	fclean all
 
