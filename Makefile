@@ -6,7 +6,7 @@
 #    By: nuferron <nuferron@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/09 11:31:39 by nuferron          #+#    #+#              #
-#    Updated: 2023/09/14 15:15:36 by nuferron         ###   ########.fr        #
+#    Updated: 2023/10/23 21:40:59 by nuferron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ ${NAME}: ${OBJS}
 	printf "${WHITE}PUSH_SWAP: ${GREEN}Binary compiled!${RESET}\n"
 
 leaks: | all
-	leaks -atExit -- ./${BIN} ${NUMS}
+	leaks -atExit -- ./${NAME} ${NUMS}
 
 norm:
 	make -C inc/ft_printf norm --no-print-directory
@@ -78,7 +78,7 @@ ${OBJDIR_BNS}%.o: ${SRCDIR_BNS}%.c ${HEADER}
 	@printf "\r%-${COLUMNS}s\r"
 
 run: | all
-	@./${BIN} ${NUMS}
+	@./${NAME} ${NUMS}
 	@echo ${NUMS} > combination
 
 bonus: ${OBJS_BNS} | all
@@ -89,7 +89,7 @@ bonus: ${OBJS_BNS} | all
 leaks_bonus: | all bonus
 	echo $(NUMS) > combination
 	$(eval FINAL_NUMS := $(shell cat combination))
-	./${BIN} ${FINAL_NUMS} | leaks -atExit -- ./${BIN_BNS} ${FINAL_NUMS}
+	./${NAME} ${FINAL_NUMS} | leaks -atExit -- ./${BIN_BNS} ${FINAL_NUMS}
 	rm -f combination
 
 clean:
