@@ -63,7 +63,6 @@ void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
 
 	while (is_sorted(*a) != 0)
 	{
-		last = last_node(*a);
 		if ((*a)->id < y * x && (*a)->id < is_max(*a) - 1)
 		{
 			push(a, b, 'b');
