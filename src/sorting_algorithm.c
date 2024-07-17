@@ -14,10 +14,8 @@
 
 int	where_is(t_stack *stack, int num)
 {
-	int	total;
 	int	ubi;
 
-	total = element_num(stack);
 	ubi = 0;
 	while (stack)
 	{
@@ -31,6 +29,23 @@ int	where_is(t_stack *stack, int num)
 
 int	less_moves(t_stack *stack, int max)
 {
+	t_stack	*last;
+
+	last = last_node(stack);
+	while (stack && last)
+	{
+		if (stack->id < max)
+			return (1);
+		else if (stack->id < max)
+			return (-1);
+		stack = stack->next;
+		last = last->next;
+	}
+	return (0);
+}
+/*
+int	less_moves(t_stack *stack, int max)
+{
 	int		top;
 	int		bottom;
 	t_stack	*last;
@@ -40,15 +55,22 @@ int	less_moves(t_stack *stack, int max)
 	last = last_node(stack);
 	while (stack)
 	{
+		
 		if (stack->id < max)
+		{
+			printf("id %d max %d\n", stack->id, max);
 			break ;
+		}
 		top++;
 		stack = stack->next;
 	}
 	while (last)
 	{
 		if (last->id < max)
+		{
+			printf("id %d max %d\n", last->id, max);
 			break ;
+		}
 		bottom++;
 		last = last->prev;
 	}
@@ -56,11 +78,9 @@ int	less_moves(t_stack *stack, int max)
 		return (-bottom);
 	return (top);
 }
-
+*/
 void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
 {
-	t_stack	*last;
-
 	while (is_sorted(*a) != 0)
 	{
 		if ((*a)->id < y * x && (*a)->id < is_max(*a) - 1)

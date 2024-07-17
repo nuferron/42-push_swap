@@ -33,9 +33,7 @@ int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack	*b;
-	int		i;
 
-	i = 1;
 	b = NULL;
 	a = NULL;
 	if (argc < 2)
