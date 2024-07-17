@@ -12,6 +12,7 @@
 
 #include "../push_swap.h"
 
+// returns the number of elements in a stack
 int	element_num(t_stack *stack)
 {
 	int	counter;
@@ -25,6 +26,7 @@ int	element_num(t_stack *stack)
 	return (counter);
 }
 
+//returns the maximum id in the stack
 int	is_max(t_stack *stack)
 {
 	int	id;
@@ -39,26 +41,22 @@ int	is_max(t_stack *stack)
 	return (id);
 }
 
+//returns the lowest id in the stack
 int	is_min(t_stack *stack)
 {
-	int		id;
-	t_stack	*tmp;
+	int	min;
 
-	id = 0;
+	min = INT_MAX;
 	while (stack)
 	{
-		tmp = stack;
-		while (tmp)
-		{
-			if (id == tmp->id)
-				return (id);
-			tmp = tmp->next;
-		}
-		id++;
+		if (stack->id < min)
+			min = stack->id;
+		stack = stack->next;
 	}
-	return (-1);
+	return (min);
 }
 
+//returns 0 id the stack is sorted and 1 if it's not
 int	is_sorted(t_stack *stack)
 {
 	if (stack->next == NULL)
@@ -72,6 +70,7 @@ int	is_sorted(t_stack *stack)
 	return (0);
 }
 
+//print moves
 void	print_moves(char move, char stack)
 {
 	if (stack == '0')
