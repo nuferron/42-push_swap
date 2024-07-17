@@ -12,8 +12,8 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "inc/ft_printf/libftprintf.h"
-# include "inc/ft_printf/libft/libft.h"
+# include "libft/ft_printf/ft_printf.h"
+# include "libft/libft.h"
 # include <stdarg.h>
 # include <stdio.h>
 # include <unistd.h>
