@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	where_is(t_stack *stack, int num)
+static int	where_is(t_stack *stack, int num)
 {
 	int	ubi;
 
@@ -27,7 +27,7 @@ int	where_is(t_stack *stack, int num)
 	return (-1);
 }
 
-int	less_moves(t_stack *stack, int max)
+static int	less_moves(t_stack *stack, int max)
 {
 	t_stack	*last;
 
@@ -37,50 +37,18 @@ int	less_moves(t_stack *stack, int max)
 		if (stack->id < max)
 			return (1);
 		else if (stack->id < max)
-			return (-1);
+			return (0);
 		stack = stack->next;
 		last = last->next;
 	}
 	return (0);
 }
-/*
-int	less_moves(t_stack *stack, int max)
-{
-	int		top;
-	int		bottom;
-	t_stack	*last;
 
-	top = 0;
-	bottom = 0;
-	last = last_node(stack);
-	while (stack)
-	{
-		
-		if (stack->id < max)
-		{
-			printf("id %d max %d\n", stack->id, max);
-			break ;
-		}
-		top++;
-		stack = stack->next;
-	}
-	while (last)
-	{
-		if (last->id < max)
-		{
-			printf("id %d max %d\n", last->id, max);
-			break ;
-		}
-		bottom++;
-		last = last->prev;
-	}
-	if (bottom < top)
-		return (-bottom);
-	return (top);
-}
-*/
-void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
+static void	from_a_to_b(t_stack **a, t_stack **b, int y)
 {
+	int	x;
+
+	x = 1;
 	while (is_sorted(*a) != 0)
 	{
 		if ((*a)->id < y * x && (*a)->id < is_max(*a) - 1)
@@ -89,7 +57,7 @@ void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
 			if (*b && (*b)->next && (*b)->id < (x * y - y / 2))
 				rotate(b, 'b');
 		}
-		else if (less_moves(*a, x * y) <= 0)
+		else if (less_moves(*a, x * y))
 			reverse_rotate(a, 'a');
 		else
 			rotate(a, 'a');
@@ -98,22 +66,26 @@ void	from_a_to_b(t_stack **a, t_stack **b, int x, int y)
 	}
 }
 
-void	from_b_to_a(t_stack **a, t_stack **b)
+static void	from_b_to_a(t_stack **a, t_stack **b)
 {
+	int		max_b;
+	t_stack	*last;
+
 	while (*b)
 	{
-		if ((*b)->id >= is_max(*b) - 2)
+		max_b = is_max(*b);
+		if ((*b)->id >= max_b - 2)
 		{
 			push(b, a, 'a');
-			if ((*a)->id == is_max(*b) - 2)
+			if ((*a)->id == max_b - 2)
 				rotate(a, 'a');
 			else if ((*a)->id - (*a)->next->id == 1)
 				swap(a, 'a');
-			if ((*a)->next->id - (last_node(*a))->id == 2
-				|| (*a)->id - (last_node(*a))->id == 2)
+			last = last_node(*a);
+			if ((*a)->next->id - last->id == 2 || (*a)->id - last->id == 2)
 				reverse_rotate(a, 'a');
 		}
-		else if (where_is(*b, is_max(*b)) > element_num(*b) / 2)
+		else if (where_is(*b, max_b) > element_num(*b) / 2)
 			reverse_rotate(b, 'b');
 		else
 			rotate(b, 'b');
@@ -122,10 +94,13 @@ void	from_b_to_a(t_stack **a, t_stack **b)
 
 void	sorting_more(t_stack **a, t_stack **b)
 {
-	if (element_num(*a) >= 500)
-		from_a_to_b(a, b, 1, element_num(*a) / 8);
+	int	elem_a;
+
+	elem_a = element_num(*a);
+	if (elem_a >= 500)
+		from_a_to_b(a, b, elem_a / 8);
 	else
-		from_a_to_b(a, b, 1, element_num(*a) / 4);
+		from_a_to_b(a, b, elem_a / 4);
 	if (element_num(*b) >= 500)
 		from_b_to_a(a, b);
 	else
