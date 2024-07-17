@@ -54,8 +54,8 @@ int	creating_stack(int argc, char **input, t_stack **stack)
 		return (-1);
 	while (i < argc)
 		nums[aux++] = ft_atoll(input[i++]);
-	i = 0;
-	while ((i + 1) < argc)
+	i = -1;
+	while (++i < argc - 1)
 	{
 		aux = getting_a(stack, nums[i], getting_id (argc, nums, i));
 		if (aux == -1)
@@ -63,7 +63,6 @@ int	creating_stack(int argc, char **input, t_stack **stack)
 			free(nums);
 			return (-1);
 		}
-		i++;
 	}
 	free(nums);
 	return (0);
