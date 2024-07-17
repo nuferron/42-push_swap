@@ -51,7 +51,8 @@ void		sorting_four(t_stack **a, t_stack **b, t_stack *last);
 void		sorting_more(t_stack **a, t_stack **b);
 void		sorting_three(t_stack **a);
 void		swap(t_stack **stack, char s);
-int			where_is(t_stack *stack, int num);
+
+/********************* CHECKER *********************/
 int			do_push(t_stack **a, t_stack **b, char *str);
 int			do_swap(t_stack **a, t_stack **b, char *str);
 int			do_rot(t_stack **a, t_stack **b, char *str);
