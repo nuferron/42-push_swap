@@ -70,10 +70,8 @@ int	main(int argc, char **argv)
 {
 	static t_stack	*a = NULL;
 	static t_stack	*b = NULL;
-	int				i;
 	char			**input;
 
-	i = 1;
 	input = argv;
 	if (argc < 2)
 		return (-1);
