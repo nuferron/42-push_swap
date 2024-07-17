@@ -34,7 +34,7 @@ SRCDIR_BNS = src_bonus/
 OBJDIR = obj/
 OBJDIR_BNS = obj_bonus/
 NAME = push_swap
-LIB = inc/ft_printf/libftprintf.a
+LIB = libft/libft.a
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
 BIN_BNS = checker
 MAX = 100
@@ -48,17 +48,14 @@ test:
 	echo $(NUMS)
 
 make_libs:
-	make -C inc/ft_printf/ bonus --no-print-directory
+	make -C libft/ bonus --no-print-directory
 
 ${NAME}: ${OBJS}
 	cc ${CFLAGS} ${OBJS} ${LIB} -o $@
 	printf "${WHITE}PUSH_SWAP: ${GREEN}Binary compiled!${RESET}\n"
 
-leaks: | all
-	leaks -atExit -- ./${NAME} ${NUMS}
-
 norm:
-	make -C inc/ft_printf norm --no-print-directory
+	make -C libft/ --no-print-directory
 	printf "${WHITE}PUSH_SWAP${RESET}\n"
 	norminette $(addprefix ${SRCDIR},$(SRCS)) $(addprefix ${SRCDIR_BNS},$(SRCS_BNS)) ${HEADER} | grep -v "OK" \
 	| awk '{if($$2 == "Error!") print "${RED}"$$1" "$$2; \
@@ -86,18 +83,12 @@ bonus: ${OBJS_BNS} | all
 	printf "${WHITE}PUSH_SWAP: ${GREEN}Binary compiled!${RESET}\n"
 	touch $@
 
-leaks_bonus: | all bonus
-	echo $(NUMS) > combination
-	$(eval FINAL_NUMS := $(shell cat combination))
-	./${NAME} ${FINAL_NUMS} | leaks -atExit -- ./${BIN_BNS} ${FINAL_NUMS}
-	rm -f combination
-
 clean:
 	if [ -d ${OBJDIR} ] || [ -d ${OBJDIR_BNS} ]; then \
 		rm -rf ${OBJDIR} ${OBJDIR_BNS} combination; \
 		printf "${WHITE}PUSH_SWAP: ${RED}Objects have been deleted${RESET}\n"; \
 	fi
-	make -C inc/ft_printf clean --no-print-directory
+	make -C libft clean --no-print-directory
 
 fclean: 	clean
 	if [ -e ${NAME} ] || [ -e do_bonus ] ; then \
@@ -105,9 +96,9 @@ fclean: 	clean
 		printf "${WHITE}PUSH_SWAP: ${RED}All existing binaries have been deleted${RESET}\n" ; \
 	else printf "${WHITE}PUSH_SWAP: ${PURPLE}Already cleaned${RESET}\n" ; \
 	fi
-	make -C inc/ft_printf fclean --no-print-directory
+	make -C libft fclean --no-print-directory
 
 re:	fclean all
 
-.SILENT: make_libs bonus ${NAME} leaks leaks_bonus clean fclean norm
+.SILENT: make_libs bonus ${NAME} clean fclean norm
 .PHONY: all clean fclean re
