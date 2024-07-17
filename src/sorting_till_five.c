@@ -48,7 +48,7 @@ void	sorting_four(t_stack **a, t_stack **b, t_stack *last)
 		rotate(a, 'a');
 }
 
-void	five_last_sort(t_stack **a, t_stack **b)
+static void	five_last_sort(t_stack **a, t_stack **b)
 {
 	int	max;
 
