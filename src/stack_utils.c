@@ -61,30 +61,3 @@ int	free_mem(t_stack *stack)
 	}
 	return (-1);
 }
-
-void	print_stack(t_stack *stack, char *str)
-{
-	if (!stack)
-		return ;
-	if (str[6] == 'a')
-	{
-		while (stack)
-		{
-			ft_printf("\033[0;32m");
-			ft_printf("%s input: %d\n", str, stack->input);
-			ft_printf("\033[0;m");
-			stack = stack->next;
-		}
-	}
-	else
-	{
-		while (stack)
-		{
-			ft_printf("\033[0;35m");
-			ft_printf("%s input: %d\n", str, stack->input);
-			ft_printf("\033[0;m");
-			stack = stack->next;
-		}
-	}
-	ft_printf("\n");
-}

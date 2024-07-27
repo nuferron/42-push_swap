@@ -68,23 +68,21 @@ void	print_stack(t_stack *stack, char *str)
 		return ;
 	if (str[6] == 'a')
 	{
+		ft_printf("\033[0;32m");
 		while (stack)
 		{
-			ft_printf("\033[0;32m");
 			ft_printf("%s input: %d\n", str, stack->input);
-			ft_printf("\033[0;m");
 			stack = stack->next;
 		}
 	}
 	else
 	{
+		ft_printf("\033[0;35m");
 		while (stack)
 		{
-			ft_printf("\033[0;35m");
 			ft_printf("%s input: %d\n", str, stack->input);
-			ft_printf("\033[0;m");
 			stack = stack->next;
 		}
 	}
-	ft_printf("\n");
+	ft_printf("\033[0;m\n");
 }
