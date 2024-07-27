@@ -78,7 +78,7 @@ static void	from_a_to_b(t_stack **a, t_stack **b, int y)
 		if ((*a)->id < y * x && (*a)->id < is_max(*a) - 1)
 		{
 			push(a, b, 'b');
-			if (*b && (*b)->next && (*b)->id < (x * y - y / 2))
+			if ((*b)->id < (x * y - y / 2))
 				rotate(b, 'b');
 		}
 		else if (less_moves(*a, x * y))
