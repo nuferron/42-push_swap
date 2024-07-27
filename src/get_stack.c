@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "../push_swap.h"
 
+/* It creates a linked list with the element
+value (num) and its FINAL id */
 int	getting_a(t_stack **stack, int num, int id)
 {
 	t_stack	*tmp;
@@ -25,6 +27,9 @@ int	getting_a(t_stack **stack, int num, int id)
 	return (0);
 }
 
+/* Given an array with the input (already valid),
+the function returns the FINAL id of that element
+in the stack */
 int	getting_id(int argc, int *elements, int num)
 {
 	int	i;
@@ -41,6 +46,7 @@ int	getting_id(int argc, int *elements, int num)
 	return (id);
 }
 
+/* It initializes stack A */
 int	creating_stack(int argc, char **input, t_stack **stack)
 {
 	int	*nums;

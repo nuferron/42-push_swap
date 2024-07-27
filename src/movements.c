@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include "../push_swap.h"
 
+/* Swaps the first two elements of a stack */
 void	swap(t_stack **stack, char s)
 {
 	int	tmp_input;
@@ -27,6 +28,7 @@ void	swap(t_stack **stack, char s)
 	print_moves('s', s);
 }
 
+/* Pushes the first element of stack src into stack dst */
 void	push(t_stack **src, t_stack **dst, char s)
 {
 	t_stack	*tmp;
@@ -50,6 +52,7 @@ void	push(t_stack **src, t_stack **dst, char s)
 	print_moves('p', s);
 }
 
+/* The first element of the stack becomes the last one */
 void	rotate(t_stack **stack, char s)
 {
 	t_stack	*last;
@@ -67,6 +70,7 @@ void	rotate(t_stack **stack, char s)
 	print_moves('r', s);
 }
 
+/* The last element of the stack becomes the first one */
 void	reverse_rotate(t_stack **stack, char s)
 {
 	int		n;

@@ -27,6 +27,10 @@ static int	where_is(t_stack *stack, int num)
 	return (-1);
 }
 
+/* It checks if the first element lower than max is closer
+to the beginning of the stack (returns 0) or to the end 
+(returns 1)
+*/
 static int	less_moves(t_stack *stack, int max)
 {
 	t_stack	*last;
@@ -35,15 +39,35 @@ static int	less_moves(t_stack *stack, int max)
 	while (stack && last)
 	{
 		if (stack->id < max)
-			return (1);
-		else if (stack->id < max)
 			return (0);
+		else if (last->id < max)
+			return (1);
 		stack = stack->next;
-		last = last->next;
+		last = last->prev;
 	}
 	return (0);
 }
 
+/* Elements are passed from stack A to stack B.
+-> y is the number of elements of a chunk; for example,
+for a stack with 100 elements, we will have 4 chunks of 25
+elements each.
+-> x is the number of chunks we have passed to the stack B (starting 1)
+
+1. Is the first element in the stack A part of the chunk and not the maximum?
+	For example, in a stack with 100 elements, in the first loop:
+	Is the first element less than 25?
+	YES
+		L> Push it to B
+		a) Is this element in the first half of the chunk (p.e. 0-12)?
+		YES => rotate (first to last)
+	NO
+2. Is the closest element belonging to the chunk near the end of the stack?
+	YES => reverse rotate (last to first)
+	NO => rotate (first to last)
+3. Are all the numbers of the chunk in the stack B?
+	YES => x++ (let's start working with the next chunk)
+*/
 static void	from_a_to_b(t_stack **a, t_stack **b, int y)
 {
 	int	x;
@@ -66,6 +90,22 @@ static void	from_a_to_b(t_stack **a, t_stack **b, int y)
 	}
 }
 
+/* Elements are past from stack B to stack A.
+1. Is the first element one of the three largest elements in stack B?
+	YES
+		L> Push it to A
+		a) Was it the third largest element?
+			YES => rotate (put it in the last position)
+		b) Is it greater by one unit than the next element?
+			YES => swap
+		c) Is the last element in stack A smaller than the first
+			or the second element by two units?
+			YES => reverse rotate (put it in the first position)
+	NO
+2. Is the maximum element in the stack B in the second half of the stack?
+	YES => reverse rotate (last to first)
+	NO => rotate (first to last)
+*/
 static void	from_b_to_a(t_stack **a, t_stack **b)
 {
 	int		max_b;
@@ -92,6 +132,11 @@ static void	from_b_to_a(t_stack **a, t_stack **b)
 	}
 }
 
+/* Stack A will be divided into chunks:
+If the stack has 500 or more elements, it will be divided into 8 chunks
+If the stack has 6 to 499 elements, it will be divided into 4 chunks
+Elements will be passed in a certain way to stack B and then, again to
+the stack A*/
 void	sorting_more(t_stack **a, t_stack **b)
 {
 	int	elem_a;
