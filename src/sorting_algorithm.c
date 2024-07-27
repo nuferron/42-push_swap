@@ -101,10 +101,7 @@ void	sorting_more(t_stack **a, t_stack **b)
 		from_a_to_b(a, b, elem_a / 8);
 	else
 		from_a_to_b(a, b, elem_a / 4);
-	if (element_num(*b) >= 500)
-		from_b_to_a(a, b);
-	else
-		from_b_to_a(a, b);
+	from_b_to_a(a, b);
 	if (is_sorted(*a) != 0)
 		swap(a, 'a');
 }
