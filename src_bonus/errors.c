@@ -35,7 +35,11 @@ long long	ft_atoll(char *str)
 	return (num * neg);
 }
 
-char	*is_duplicated(int argc, int i, int num)
+/* It checks if the element has already been parsed.
+If an error happens, it returns 1.
+If the element is duplicated, it returns 1.
+Otherwise, it saves the number and returns 0 */
+int is_duplicated(int argc, int i, int num)
 {
 	static int	*elements = NULL;
 	int			j;
@@ -45,21 +49,21 @@ char	*is_duplicated(int argc, int i, int num)
 	{
 		elements = (int *)ft_calloc(argc, sizeof(int));
 		if (!elements)
-			return (NULL);
+			return (1);
 	}
 	while (j < i)
 	{
 		if (elements[j] == num)
 		{
 			free(elements);
-			return (NULL);
+			return (1);
 		}
 		j++;
 	}
 	elements[i] = num;
 	if (i == argc - 1)
 		free(elements);
-	return ("OK");
+	return (0);
 }
 
 int	checking_input(int argc, char **input)
@@ -82,7 +86,7 @@ int	checking_input(int argc, char **input)
 		}
 		if (ft_atoll(input[i]) > 2147483647 || ft_atoll(input[i]) < -2147483648)
 			return (-1);
-		if (is_duplicated(argc, i - 1, ft_atoll(input[i])) == NULL)
+		if (is_duplicated(argc, i - 1, ft_atoll(input[i])))
 			return (-1);
 		i++;
 	}
