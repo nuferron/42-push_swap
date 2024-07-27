@@ -44,8 +44,8 @@ void	reading_moves(t_stack **a, t_stack **b, int flag)
 		making_moves(a, b, str);
 		if (flag == 1)
 		{
-			print_stack(*a, "stack a:");
-			print_stack(*b, "stack b:");
+			print_stack(*a);
+			print_stack(*b);
 		}
 		free(str);
 	}

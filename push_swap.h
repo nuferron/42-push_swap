@@ -42,7 +42,6 @@ int			is_sorted(t_stack *stack);
 t_stack		*last_node(t_stack *stack);
 t_stack		*new_node(int num, int id);
 void		print_moves(char move, char stack);
-void		print_stack(t_stack *stack, char *str);
 void		push(t_stack **src, t_stack **dst, char s);
 void		reverse_rotate(t_stack **stack, char s);
 void		rotate(t_stack **stack, char s);
@@ -57,5 +56,6 @@ int			do_push(t_stack **a, t_stack **b, char *str);
 int			do_swap(t_stack **a, t_stack **b, char *str);
 int			do_rot(t_stack **a, t_stack **b, char *str);
 int			do_rr(t_stack **a, t_stack **b, char *str);
+void		print_stack(t_stack *stack);
 
 #endif
