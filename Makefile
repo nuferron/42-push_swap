@@ -48,7 +48,7 @@ test:
 	echo $(NUMS)
 
 make_libs:
-	make -C libft/ bonus --no-print-directory
+	make -C libft/ --no-print-directory
 
 ${NAME}: ${OBJS}
 	cc ${CFLAGS} ${OBJS} ${LIB} -o $@

@@ -28,12 +28,7 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	   ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c hex_len.c unsigned_len.c \
 	   int_len.c gnl/gnl.c gnl/gnl_utils.c
 
-SRCS_BNS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
-			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
-			ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
-
 OBJS = $(addprefix $(OBJDIR),$(SRCS:.c=.o))
-OBJS_BNS = $(addprefix $(OBJDIR), $(addprefix bonus/, $(SRCS_BNS:.c=.o)))
 OBJDIR = obj/
 SRCDIR = src/
 HEADER = libft.h
@@ -48,8 +43,6 @@ ${NAME}:	${OBJS}
 		ar rcs ${NAME} ${OBJS}
 		printf "${WHITE}LIBFT: ${GREEN}Library compiled!${RESET}\n"
 		${MAKE} -s make_printf
-
-bonus:	do_bonus
 
 make_printf:
 		rm -f ft_printf/do_bonus
@@ -66,12 +59,6 @@ combine_libs: ${NAME} ${LIBP}
 		ar -crs ${NAME} tmp/*.o
 		rm -rf tmp
 
-do_bonus:	${OBJS} ${OBJS_BNS}
-		ar rcs ${NAME} ${OBJS} ${OBJS_BNS}
-		printf "${WHITE}LIBFT: ${GREEN}Bonus compiled!${RESET}\n"
-		${MAKE} -s make_printf
-		touch do_bonus
-
 norm:
 	make -C ft_printf norm --no-print-directory
 	printf "${WHITE}LIBFT${RESET}"
@@ -81,7 +68,6 @@ norm:
 
 $(OBJDIR)%.o:	${SRCDIR}%.c $(HEADER) Makefile
 		@mkdir -p $(dir $@)
-		@mkdir -p ${OBJDIR}/bonus
 		@mkdir -p ${OBJDIR}/gnl
 		@printf "${WHITE}LIBFT:${CYAN}Compiling files: ${WHITE}$(notdir $<)...${RESET}\r"
 		@cc $(CFLAGS) -I . -c $< -o $@
@@ -104,5 +90,5 @@ fclean: 	clean
 
 re:		fclean all
 
-.SILENT: fclean clean do_bonus norm make_printf combine_libs ${NAME}
-.PHONY: all clean fclean re bonus make_printf
+.SILENT: fclean clean norm make_printf combine_libs ${NAME}
+.PHONY: all clean fclean re make_printf
